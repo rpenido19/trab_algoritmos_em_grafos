@@ -28,8 +28,17 @@ public class Grafo<TIPO> {
         Vertice<TIPO> fim = this.getVertice(codVerticeFim);
         // Cria uma aresta utilizando os vértices encontrados
         Aresta<TIPO> aresta = new Aresta<TIPO>(peso, inicio, fim);
-        inicio.adicionarArestaSaida(aresta);
-        fim.adicionarArestaEntrada(aresta);
+        if(this.tipoGrafo == "NAO DIRECIONADO"){
+            inicio.adicionarArestaEntrada(aresta);
+            inicio.adicionarArestaSaida(aresta);
+            fim.adicionarArestaEntrada(aresta);
+            fim.adicionarArestaSaida(aresta);
+        }else if(this.tipoGrafo == "NAO DIRECIONADO"){
+            inicio.adicionarArestaSaida(aresta);
+            fim.adicionarArestaEntrada(aresta);
+        }else{
+            System.out.println("Erro - Tipo de grafo não existente");
+        }
         this.arestas.add(aresta);
     }
 
@@ -92,6 +101,34 @@ public class Grafo<TIPO> {
         
     }
 
-    //Retorna o grau do 
+    //Retorna o grau de um vértice
+    public int getGrau(TIPO codVertice){
+        Vertice<TIPO> vertice = getVertice(codVertice);
+        int countGrau = 0;
+        for (int i = 0; i < vertice.getArestasSaida().size(); i++) {
+            if (vertice.getCodVertice().equals(vertice.getArestasSaida().get(i).getFim().getCodVertice()) || vertice.getCodVertice().equals(vertice.getArestasSaida().get(i).getInicio().getCodVertice())) {
+                countGrau++;
+            }
+        }
+        System.out.println("Grau do vértice: " + countGrau);
+        return countGrau;
+    }
+
+    //Retorna se o vértice é isolado ou não
+    public boolean isIsolado(TIPO codVertice){
+        int grau = getGrau(codVertice);
+        if(grau == 0){
+            System.out.println("O vértice está isolado");
+            return true;
+        }else{
+            System.out.println("O vértice não está isolado");
+            return false;
+        }
+    }
+
+    //Retorna se o vértice é pendente ou não
+    public boolean isPendente(TIPO codVertice) {
+        return getGrau(codVertice) == 1;     
+    }
 
 }
