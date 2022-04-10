@@ -39,7 +39,9 @@ public class Grafo<TIPO> {
         return vertice;
     }
 
-    public boolean isAdjacente(Vertice<TIPO> v1, Vertice<TIPO> v2) {
+    public boolean isAdjacente(TIPO vertice1, TIPO vertice2) {
+        Vertice<TIPO> v1 = this.getVertice(vertice1);
+        Vertice<TIPO> v2 = this.getVertice(vertice2);
         boolean adjacente = false;
         for (int i = 0; i < ((ArrayList<Vertice<TIPO>>) v1.getArestasSaida()).size(); i++) {
             if (((ArrayList<Vertice<TIPO>>) v1.getArestasSaida()).get(i).getFim().equals(v2)) {
