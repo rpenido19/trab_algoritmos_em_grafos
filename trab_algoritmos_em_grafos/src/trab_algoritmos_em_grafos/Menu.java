@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-	// Exibe cabeçalho, chama menu
+	// Exibe cabeÃ§alho, chama menu
 	public static void initializeMenu() {
 		//    _____              ____        
 		//   / ___/__________ __/ __/_  _____
@@ -18,8 +18,8 @@ public class Menu {
 				+ "\\____/_/   \\_____\\/_/\\____/____/  \r\n"
 				+ "\r\n";
 		
-		// Versão do produto
-		cabecalho += "Trab. Algoritmos em Grafos versão 1.0.1 26/03/2022"
+		// Versï¿½o do produto
+		cabecalho += "Trab. Algoritmos em Grafos versÃ£o 1.0.1 26/03/2022"
 				   + "\r\n";
 		
 		// Membros do grupo
@@ -37,7 +37,7 @@ public class Menu {
 
 		System.out.println("q, quit					finaliza o programa");
 
-		System.out.print("\nDigite uma opção: ");
+		System.out.print("\nDigite uma opÃ§Ã£o: ");
 		opt = input.nextLine();
 
 		switch (opt) {
@@ -46,7 +46,7 @@ public class Menu {
 				System.out.println("Obrigado por utilizar o programa!");
 				break;
 			default:
-				System.out.println("\nWARNING - Comando digitado inválido!\n");
+				System.out.println("\nWARNING - Comando digitado invÃ¡lido!\n");
 				menu();
 		}
 
