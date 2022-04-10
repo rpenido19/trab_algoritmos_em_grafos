@@ -7,10 +7,10 @@ public class Main {
 		//menu.initializeMenu();
 
 		//Exemplo de criação do grafo
-		Grafo<String> grafo = new Grafo<String>();
-		grafo.adicionarVertice("A");
-		grafo.adicionarVertice("B");
-		grafo.adicionarAresta(1.0, "A", "B");
+		Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");
+		grafo.adicionarVertice(0);
+		grafo.adicionarVertice(1);
+		grafo.adicionarAresta(1, 0, 1);
 	}
 
 }
