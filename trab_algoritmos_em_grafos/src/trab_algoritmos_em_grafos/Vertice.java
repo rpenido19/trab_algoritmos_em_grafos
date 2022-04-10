@@ -23,6 +23,10 @@ public class Vertice<TIPO> {
         this.codVertice = codVertice;
     }
 
+    public ArrayList<Aresta<TIPO>> getArestasSaida() {
+        return arestasSaida;
+    }
+
     // Adicionar arestas de entrada e saída
     public void adicionarArestaEntrada(Aresta<TIPO> aresta) {
         this.arestasEntrada.add(aresta);
@@ -30,14 +34,6 @@ public class Vertice<TIPO> {
 
     public void adicionarArestaSaida(Aresta<TIPO> aresta) {
         this.arestasSaida.add(aresta);
-    }
-
-    public ArrayList<Aresta<TIPO>> getArestasSaida() {
-        return arestasSaida;
-    }
-
-    public Object getFim() {
-        return null;
     }
 
 }

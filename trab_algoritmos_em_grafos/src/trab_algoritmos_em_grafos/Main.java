@@ -10,7 +10,10 @@ public class Main {
 		Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");
 		grafo.adicionarVertice(0);
 		grafo.adicionarVertice(1);
+		grafo.adicionarVertice(2);
 		grafo.adicionarAresta(1, 0, 1);
+		grafo.adicionarAresta(1, 1, 2);
+		grafo.isAdjacente(2, 1);
 	}
 
 }
