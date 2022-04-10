@@ -32,4 +32,15 @@ public class Vertice {
     public int getGrau() {
         return this.grau;
     }
+
+    public void setVisitado(boolean b) {
+    }
+
+    public char[] getNome() {
+        return null;
+    }
+
+    public boolean isVisitado() {
+        return false;
+    }
 }
