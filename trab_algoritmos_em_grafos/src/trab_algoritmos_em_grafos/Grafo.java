@@ -136,4 +136,25 @@ public class Grafo<TIPO> {
         return getGrau(codVertice) == 1;     
     }
 
+    //Retorna se o grafo é regular ou não
+    public boolean isRegular(ArrayList<Integer> verticesGrafo){
+        TIPO codVertice;
+        boolean isRegular = true;
+        int repeticoes = 0;
+        int grauTemp = 0;
+        for(Integer vertice : verticesGrafo){
+            codVertice = (TIPO) vertice;
+            if(repeticoes == 0){
+                grauTemp = getGrau(codVertice);
+            }else{
+                if(grauTemp!=getGrau(codVertice)){
+                    isRegular = false;
+                    break;
+                }
+            }
+            repeticoes++;
+        }
+        return isRegular;
+    }
+
 }

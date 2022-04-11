@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Input {
 
 	private static String route = "C:\\";
-	private static String filename = "grafo.txt";
+	private static String filename = "grafoRegular.txt";
 
 	public static String getRoute() {
 		return route;
