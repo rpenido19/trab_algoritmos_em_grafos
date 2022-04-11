@@ -187,5 +187,23 @@ public class Grafo<TIPO> {
         }
         return isCompleto;
     }
+    public boolean isUnicursal(ArrayList<Integer> verticesGrafo){
+        TIPO codVertice;
+        boolean isUnicursal = true;
+        int counImpar = 0;
+        for(Integer vertice : verticesGrafo){
+            codVertice = (TIPO) vertice;
+            // System.out.println(getGrau(codVertice));
+            if(getGrau(codVertice)%2 != 0){
+                counImpar++;
+            };
+        }
+        if(counImpar == 2){
+            isUnicursal = true;
+        }else {
+            isUnicursal = false;
+        }
+        return isUnicursal;
+    }
 
 }
