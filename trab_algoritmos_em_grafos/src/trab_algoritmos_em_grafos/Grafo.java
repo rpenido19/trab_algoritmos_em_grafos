@@ -157,4 +157,18 @@ public class Grafo<TIPO> {
         return isRegular;
     }
 
+    //Retorna se o grafo é nulo ou não
+    public boolean isNulo(ArrayList<Integer> verticesGrafo){
+        TIPO codVertice;
+        boolean isNulo = true;
+        int grauTemp = 0;
+        for(Integer vertice : verticesGrafo){
+            codVertice = (TIPO) vertice;
+            if(grauTemp!=getGrau(codVertice)){
+                isNulo = false;
+            }
+        }
+        return isNulo;
+    }
+
 }

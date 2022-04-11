@@ -35,50 +35,23 @@ public class Menu {
 		//Cria o grafo
 		Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");
 		ArrayList<Integer> verticesGrafo = new ArrayList<>();
-
-		grafo = new Grafo<Integer>("NAO DIRECIONADO");
-		ArrayList<Integer> verticesAdicionar = new ArrayList<>();	
 		ArrayList<String> grafoFileData = filereader.readFile();
-		//Cria os vértices
+		int qntVertices = 0;
 		int repeticoes = 0;
+		boolean errorGrafo = false;
 		for(String linha : grafoFileData){
-			if(repeticoes!=0){
-				linha = linha.replace(" ", "");
-				String[] arestasArray =  linha.split(";");
-				//Verifica os dois primeiros números da linha do input (vertice 1, vertice 2)
-				for(int i = 0; i < 2; i++){
-					boolean verticeEncontrado = false;
-					//Analisa se o vertice já existe na lista de vertices a adicionar
-					if(verticesAdicionar.size() == 0){
-						verticesAdicionar.add(Integer.parseInt(arestasArray[i]));
-					}else{
-						for(Integer verticeTemp : verticesAdicionar){
-							if(verticeTemp == Integer.parseInt(arestasArray[i])){
-								verticeEncontrado = true;
-								break;
-							}
-						}
-						if(verticeEncontrado == false){
-							verticesAdicionar.add(Integer.parseInt(arestasArray[i]));
-						}
-					}
+			if(repeticoes==0){
+				//Criando vértices
+				qntVertices = Integer.parseInt(linha);
+				for(int i=0;i<qntVertices;i++){
+					grafo.adicionarVertice(i+1);
+					verticesGrafo.add(i+1);
+					System.out.println("Vértice adicionado: " + (i+1));
 				}
-			}
-			repeticoes++;
-		}
-		//Adicionando os vertices da arrayList 'verticesAdicionar'
-		for(Integer verticeTemp : verticesAdicionar){
-			grafo.adicionarVertice(verticeTemp);
-			System.out.println("Vértice adicionado: Cod. " + verticeTemp);
-		}
-		//Vetor de vertices adicionados
-		verticesGrafo = verticesAdicionar;
-		//Cria as arrestas
-		repeticoes = 0;
-		for(String linha : grafoFileData){
-			if(repeticoes!=0){
+			}else{
 				linha = linha.replace(" ", "");
 				String[] arestasArray =  linha.split(";");
+				System.out.println("Leitura de linha do input: " + linha);
 				if(arestasArray.length == 3){
 					//Grafo não-direcionado
 					grafo.setTipoGrafo("NAO DIRECIONADO");
@@ -95,16 +68,20 @@ public class Menu {
 						System.out.println("Arresta adicionada: " + arestasArray[1] + "-" + arestasArray[0]);
 					}else{
 						System.out.println("Erro ao ler a direção da aresta");
+						errorGrafo = true;
 					}
 				}else{
 					System.out.println("Falha na criação do grafo, verificar arquivo de input");
+					errorGrafo = true;
 				}
-				System.out.println("Leitura de linha do input: " + linha);
 			}
 			repeticoes++;
 		}
-		System.out.println("Grafo criado!");
-
+		if(errorGrafo == false){
+			System.out.println("Grafo criado!");
+		}else{
+			System.out.println("Houve algum problema na criação do grafo");
+		}
 		menu(grafo, verticesGrafo);
 	}
 
@@ -119,6 +96,7 @@ public class Menu {
 		System.out.println("Menu de opções");
 		System.out.println("_______________________________________________________________________");
 		System.out.println("isRegular			verifica se o grafo é regular");
+		System.out.println("isNulo				verifica se o grafo é nulo");
 		System.out.println("quit				finaliza o programa");
 
 		System.out.print("\nDigite uma opção: ");
@@ -130,6 +108,14 @@ public class Menu {
 				System.out.println("O grafo é regular");
 			}else{
 				System.out.println("O grafo não é regular");
+			}
+			menu(grafo, verticesGrafo);
+			break;
+		case "isNulo":
+			if(grafo.isNulo(verticesGrafo)==true){
+				System.out.println("O grafo é nulo");
+			}else{
+				System.out.println("O grafo não é nulo");
 			}
 			menu(grafo, verticesGrafo);
 			break;
