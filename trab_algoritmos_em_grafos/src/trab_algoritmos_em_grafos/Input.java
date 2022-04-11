@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Input {
 
 	private static String route = "C:\\";
-	private static String filename = "teste.txt";
+	private static String filename = "grafo.txt";
 
 	public static String getRoute() {
 		return route;
@@ -21,7 +21,7 @@ public class Input {
 			System.out.println("Rota alterada com sucesso.");
 			Input.route = route;
 		} catch (Exception e) {
-			System.out.println("Operação falhou.");
+			System.out.println("OperaÃ§Ã£o falhou.");
 		}
 	}
 
@@ -37,11 +37,11 @@ public class Input {
 			System.out.println("Arquivo renomeado com sucesso.");
 			Input.filename = filename;
 		} else {
-			System.out.println("Operação falhou.");
+			System.out.println("OperaÃ§Ã£o falhou.");
 		}
 	}
 
-	// Lê o arquivo de entrada e retorna um array com os dados do grafo
+	// LÃª o arquivo de entrada e retorna um array com os dados do grafo
 	public static ArrayList<String> readFile() {
 		ArrayList<String> data = new ArrayList<String>();
 		try {
@@ -52,7 +52,7 @@ public class Input {
 			}
 			input.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Arquivo não encontrado.");
+			System.out.println("Arquivo nÃ£o encontrado.");
 			System.out.println(getRoute() + getFilename());
 			e.printStackTrace();
 		}

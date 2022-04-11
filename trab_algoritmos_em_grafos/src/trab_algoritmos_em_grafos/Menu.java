@@ -1,5 +1,6 @@
 package trab_algoritmos_em_grafos;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -16,7 +17,7 @@ public class Menu {
 				+ "\\____/_/   \\_____\\/_/\\____/____/  \r\n" + "\r\n";
 
 		// Vers�o do produto
-		cabecalho += "Trab. Algoritmos em Grafos vers�o 1.0.1 26/03/2022" + "\r\n";
+		cabecalho += "Trab. Algoritmos em Grafos versão 1.0.1 26/03/2022" + "\r\n";
 
 		// Membros do grupo
 		cabecalho += "Grupo: Gustavo Henrique, Matheus Ryuji, Maxwuell Junio, Rafael Penido" + "\r\n\r\n";
@@ -33,7 +34,7 @@ public class Menu {
 
 		System.out.println("afn, alterfilename		alterar nome do arquivo de entrada");
 		System.out.println("afp, alterfilepath		alterar rota do arquivo de entrada");
-		System.out.println("rf, readfile			l� o arquivo de entrada");
+		System.out.println("rf, readfile			lê o arquivo de entrada");
 		System.out.println("sfp, showfilepath		exibe o nome e rota do arquivo de entrada");
 		System.out.println("\nq, quit					finaliza o programa");
 
@@ -53,8 +54,71 @@ public class Menu {
 			break;
 		case "rf":
 		case "readfile":
-			// grafo = filereader.readFile();
-			break;
+			Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");	
+			ArrayList<String> grafoFileData = filereader.readFile();
+			//Criar vértices
+			int repeticoes = 0;
+			ArrayList<Integer> verticesAdicionar = new ArrayList<>();
+			for(String linha : grafoFileData){
+				if(repeticoes!=0){
+					linha = linha.replace(" ", "");
+					String[] arestasArray =  linha.split(";");
+					//Verifica os dois primeiros números da linha do input (vertice 1, vertice 2)
+					for(int i = 0; i < 2; i++){
+						boolean verticeEncontrado = false;
+						//Analisa se o vertice já existe na lista de vertices a adicionar
+						if(verticesAdicionar.size() == 0){
+							verticesAdicionar.add(Integer.parseInt(arestasArray[i]));
+						}else{
+							for(Integer verticeTemp : verticesAdicionar){
+								if(verticeTemp == Integer.parseInt(arestasArray[i])){
+									verticeEncontrado = true;
+									break;
+								}
+							}
+							if(verticeEncontrado == false){
+								verticesAdicionar.add(Integer.parseInt(arestasArray[i]));
+							}
+						}
+					}
+				}
+				repeticoes++;
+			}
+			//Adicionando os vertices da arrayList 'verticesAdicionar'
+			for(Integer verticeTemp : verticesAdicionar){
+				grafo.adicionarVertice(verticeTemp);
+				System.out.println("Vértice adicionado: Cod. " + verticeTemp);
+			}
+			//Criar arrestas
+			repeticoes = 0;
+			for(String linha : grafoFileData){
+				if(repeticoes!=0){
+					linha = linha.replace(" ", "");
+					String[] arestasArray =  linha.split(";");
+					if(arestasArray.length == 3){
+						//Grafo não-direcionado
+						grafo.setTipoGrafo("NAO DIRECIONADO");
+						grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[0]), Integer.parseInt(arestasArray[1]));
+						System.out.println("Arresta adicionada: " + arestasArray[0] + "-" + arestasArray[1]);
+					}else if(arestasArray.length == 4){
+						//Grafo direcionado
+						grafo.setTipoGrafo("DIRECIONADO");
+						if(Integer.parseInt(arestasArray[3]) == 1){
+							grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[0]), Integer.parseInt(arestasArray[1]));
+							System.out.println("Arresta adicionada: " + arestasArray[0] + "-" + arestasArray[1]);
+						}else if(Integer.parseInt(arestasArray[3]) == -1){
+							grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[1]), Integer.parseInt(arestasArray[0]));
+							System.out.println("Arresta adicionada: " + arestasArray[1] + "-" + arestasArray[0]);
+						}else{
+							System.out.println("Erro ao ler a direção da aresta");
+						}
+					}else{
+						System.out.println("Falha na criação do grafo, verificar arquivo de input");
+					}
+					System.out.println("Leitura de linha do input: " + linha);
+				}
+				repeticoes++;
+			}
 		case "sfp":
 		case "showfilepath":
 			System.out.println(filereader.getRoute() + filereader.getFilename());
@@ -65,7 +129,7 @@ public class Menu {
 			System.out.println("Obrigado por utilizar o programa!");
 			break;
 		default:
-			System.out.println("\nWARNING - Comando digitado inv�lido!\n");
+			System.out.println("\nWARNING - Comando digitado inválido!\n");
 			menu();
 		}
 

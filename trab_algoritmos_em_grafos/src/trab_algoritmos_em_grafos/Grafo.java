@@ -15,6 +15,11 @@ public class Grafo<TIPO> {
         this.arestas = new ArrayList<Aresta<TIPO>>();
     }
 
+    //Getters e Setters
+    public void setTipoGrafo(String tipoGrafo){
+        this.tipoGrafo = tipoGrafo;
+    }
+
     //Adicionar vértice
     public void adicionarVertice(TIPO codVertice) {
         Vertice<TIPO> novoVertice = new Vertice<TIPO>(codVertice);
@@ -33,7 +38,7 @@ public class Grafo<TIPO> {
             inicio.adicionarArestaSaida(aresta);
             fim.adicionarArestaEntrada(aresta);
             fim.adicionarArestaSaida(aresta);
-        }else if(this.tipoGrafo == "NAO DIRECIONADO"){
+        }else if(this.tipoGrafo == "DIRECIONADO"){
             inicio.adicionarArestaSaida(aresta);
             fim.adicionarArestaEntrada(aresta);
         }else{
