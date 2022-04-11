@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Grafo<TIPO> {
 
+    private int qntVertices;
     private String tipoGrafo;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
@@ -24,6 +25,7 @@ public class Grafo<TIPO> {
     public void adicionarVertice(TIPO codVertice) {
         Vertice<TIPO> novoVertice = new Vertice<TIPO>(codVertice);
         this.vertices.add(novoVertice);
+        this.qntVertices++;
     }
 
     //Adicionar aresta
@@ -169,6 +171,21 @@ public class Grafo<TIPO> {
             }
         }
         return isNulo;
+    }
+
+    //Retorna se o grafo é completo
+    public boolean isCompleto(ArrayList<Integer> verticesGrafo){
+        System.out.println("Quantidade de vértices: " + this.qntVertices);
+        TIPO codVertice;
+        boolean isCompleto = true;
+        int grauTemp = this.qntVertices - 1;
+        for(Integer vertice : verticesGrafo){
+            codVertice = (TIPO) vertice;
+            if(grauTemp!=getGrau(codVertice)){
+                isCompleto = false;
+            }
+        }
+        return isCompleto;
     }
 
 }

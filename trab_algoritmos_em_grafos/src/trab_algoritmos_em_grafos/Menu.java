@@ -103,6 +103,7 @@ public class Menu {
 		System.out.println("isPendente			verifica se o vértice é pendente");
 		System.out.println("isRegular			verifica se o grafo é regular");
 		System.out.println("isNulo				verifica se o grafo é nulo");
+		System.out.println("isCompleto			verifica se o grafo é completo");
 		System.out.println("quit				finaliza o programa");
 
 		System.out.print("\nDigite uma opção: ");
@@ -152,6 +153,14 @@ public class Menu {
 				System.out.println("O grafo é nulo");
 			}else{
 				System.out.println("O grafo não é nulo");
+			}
+			menu(grafo, verticesGrafo);
+			break;
+		case "isCompleto":
+			if(grafo.isCompleto(verticesGrafo)==true){
+				System.out.println("O grafo é completo");
+			}else{
+				System.out.println("O grafo não é completo");
 			}
 			menu(grafo, verticesGrafo);
 			break;
