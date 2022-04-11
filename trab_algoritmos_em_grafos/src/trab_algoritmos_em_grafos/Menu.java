@@ -109,6 +109,7 @@ public class Menu {
 		System.out.println("isNulo				verifica se o grafo é nulo");
 		System.out.println("isCompleto			verifica se o grafo é completo");
 		System.out.println("isUnicursal			verifica se o grafo é isUnicursal");
+		System.out.println("isEuleriano			verifica se o grafo é isEuleriano");
 		System.out.println("quit				finaliza o programa");
 
 		System.out.print("\nDigite uma opção: ");
@@ -174,6 +175,14 @@ public class Menu {
 					System.out.println("O grafo é unicursal");
 				} else {
 					System.out.println("O grafo não é unicursal");
+				}
+				menu(grafo, verticesGrafo);
+				break;
+			case "isEuleriano":
+				if (grafo.isEuleriano(verticesGrafo) == true) {
+					System.out.println("O grafo é Euleriano");
+				} else {
+					System.out.println("O grafo não é Euleriano");
 				}
 				menu(grafo, verticesGrafo);
 				break;

@@ -205,5 +205,23 @@ public class Grafo<TIPO> {
         }
         return isUnicursal;
     }
+    public boolean isEuleriano(ArrayList<Integer> verticesGrafo){
+        TIPO codVertice;
+        boolean isEuleriano = true;
+        int counPar = 0;
+        for(Integer vertice : verticesGrafo){
+            codVertice = (TIPO) vertice;
+            // System.out.println(getGrau(codVertice));
+            if(getGrau(codVertice)%2 == 0){
+                counPar++;
+            };
+        }
+        if(counPar == this.qntVertices){
+            isEuleriano = true;
+        }else {
+            isEuleriano = false;
+        }
+        return isEuleriano;
+    }
 
 }
