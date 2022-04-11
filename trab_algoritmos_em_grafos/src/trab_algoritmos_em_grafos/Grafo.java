@@ -8,41 +8,41 @@ public class Grafo<TIPO> {
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
 
-    //Construtor
+    // Construtor
     public Grafo(String tipoGrafo) {
         this.tipoGrafo = tipoGrafo;
         this.vertices = new ArrayList<Vertice<TIPO>>();
         this.arestas = new ArrayList<Aresta<TIPO>>();
     }
 
-    //Adicionar vértice
+    // Adicionar vértice
     public void adicionarVertice(TIPO codVertice) {
         Vertice<TIPO> novoVertice = new Vertice<TIPO>(codVertice);
         this.vertices.add(novoVertice);
     }
 
-    //Adicionar aresta
+    // Adicionar aresta
     public void adicionarAresta(int peso, TIPO codVerticeInicio, TIPO codVerticeFim) {
         // Busca os vértices pelos dados de início e fim informados
         Vertice<TIPO> inicio = this.getVertice(codVerticeInicio);
         Vertice<TIPO> fim = this.getVertice(codVerticeFim);
         // Cria uma aresta utilizando os vértices encontrados
         Aresta<TIPO> aresta = new Aresta<TIPO>(peso, inicio, fim);
-        if(this.tipoGrafo == "NAO DIRECIONADO"){
+        if (this.tipoGrafo == "NAO DIRECIONADO") {
             inicio.adicionarArestaEntrada(aresta);
             inicio.adicionarArestaSaida(aresta);
             fim.adicionarArestaEntrada(aresta);
             fim.adicionarArestaSaida(aresta);
-        }else if(this.tipoGrafo == "NAO DIRECIONADO"){
+        } else if (this.tipoGrafo == "NAO DIRECIONADO") {
             inicio.adicionarArestaSaida(aresta);
             fim.adicionarArestaEntrada(aresta);
-        }else{
+        } else {
             System.out.println("Erro - Tipo de grafo não existente");
         }
         this.arestas.add(aresta);
     }
 
-    //Retorna todos os dados referente ao vértice
+    // Retorna todos os dados referente ao vértice
     public Vertice<TIPO> getVertice(TIPO codVertice) {
         Vertice<TIPO> vertice = null;
         for (int i = 0; i < this.vertices.size(); i++) {
@@ -54,9 +54,9 @@ public class Grafo<TIPO> {
         return vertice;
     }
 
-    //Verifica se dois vértices são adjacentes ou não
+    // Verifica se dois vértices são adjacentes ou não
     public boolean isAdjacente(TIPO vertice1, TIPO vertice2) {
-        if(this.tipoGrafo.equals("NAO DIRECIONADO")){
+        if (this.tipoGrafo.equals("NAO DIRECIONADO")) {
             Vertice<TIPO> v1 = this.getVertice(vertice1);
             Vertice<TIPO> v2 = this.getVertice(vertice2);
             boolean adjacente = false;
@@ -72,13 +72,13 @@ public class Grafo<TIPO> {
                     break;
                 }
             }
-            if(adjacente == true){
+            if (adjacente == true) {
                 System.out.println("Sim, é adjacente");
-            }else{
+            } else {
                 System.out.println("Não é adjacente");
             }
             return adjacente;
-        }else if(this.tipoGrafo.equals("DIRECIONADO")){
+        } else if (this.tipoGrafo.equals("DIRECIONADO")) {
             Vertice<TIPO> v1 = this.getVertice(vertice1);
             Vertice<TIPO> v2 = this.getVertice(vertice2);
             boolean adjacente = false;
@@ -88,25 +88,26 @@ public class Grafo<TIPO> {
                     break;
                 }
             }
-            if(adjacente == true){
+            if (adjacente == true) {
                 System.out.println("Sim, é adjacente");
-            }else{
+            } else {
                 System.out.println("Não é adjacente");
             }
             return adjacente;
-        }else{
+        } else {
             System.out.println("ERRO - TIPO DE GRAFO NÃO EXISTENTE");
             return false;
         }
-        
+
     }
 
-    //Retorna o grau de um vértice
-    public int getGrau(TIPO codVertice){
+    // Retorna o grau de um vértice
+    public int getGrau(TIPO codVertice) {
         Vertice<TIPO> vertice = getVertice(codVertice);
         int countGrau = 0;
         for (int i = 0; i < vertice.getArestasSaida().size(); i++) {
-            if (vertice.getCodVertice().equals(vertice.getArestasSaida().get(i).getFim().getCodVertice()) || vertice.getCodVertice().equals(vertice.getArestasSaida().get(i).getInicio().getCodVertice())) {
+            if (vertice.getCodVertice().equals(vertice.getArestasSaida().get(i).getFim().getCodVertice())
+                    || vertice.getCodVertice().equals(vertice.getArestasSaida().get(i).getInicio().getCodVertice())) {
                 countGrau++;
             }
         }
@@ -114,45 +115,76 @@ public class Grafo<TIPO> {
         return countGrau;
     }
 
-    //Retorna se o vértice é isolado ou não
-    public boolean isIsolado(TIPO codVertice){
+    // Retorna se o vértice é isolado ou não
+    public boolean isIsolado(TIPO codVertice) {
         int grau = getGrau(codVertice);
-        if(grau == 0){
+        if (grau == 0) {
             System.out.println("O vértice está isolado");
             return true;
-        }else{
+        } else {
             System.out.println("O vértice não está isolado");
             return false;
         }
     }
 
-    //Retorna se o vértice é pendente ou não
+    // Retorna se o vértice é pendente ou não
     public boolean isPendente(TIPO codVertice) {
-        return getGrau(codVertice) == 1;     
+        return getGrau(codVertice) == 1;
     }
 
     // public void isRegular(){
-    //   for(int i =0; i<this.vertices.size(); i++){
-    //     //   System.out.println(this.vertices.get(i).getCodVertice());
-    //     //   if(this.arestas.get(i).getInicio().equals(this.arestas.get(i).getFim())){
-    //     //       System.out.println("Este Grafo é regular");
-    //     //   }else{
-    //     //       System.out.println("Este Grafo não é regular");
-    //     //   }
-    //     //   this.vertices.add(i);
-    //     //   System.out.println();
-    //     // } 
-    //     System.out.println(this.arestas.get(i).getInicio().getCodVertice());
-    //     System.out.println(this.arestas.get(i).getFim().getCodVertice());
+    // for(int i =0; i<this.vertices.size(); i++){
+    // // System.out.println(this.vertices.get(i).getCodVertice());
+    // // if(this.arestas.get(i).getInicio().equals(this.arestas.get(i).getFim())){
+    // // System.out.println("Este Grafo é regular");
+    // // }else{
+    // // System.out.println("Este Grafo não é regular");
+    // // }
+    // // this.vertices.add(i);
+    // // System.out.println();
+    // // }
+    // System.out.println(this.arestas.get(i).getInicio().getCodVertice());
+    // System.out.println(this.arestas.get(i).getFim().getCodVertice());
 
-    //   }
     // }
+    // }
+    public boolean isRegular() {
+        int grau = 0;
+        int tempGrau = 0;
+        int aux = 0;
+        for (int i = 0; i < this.vertices.size(); i++) {
+            for (int a = 0; a < this.arestas.size(); a++) {
+                if (this.vertices.get(i).getCodVertice().equals(this.arestas.get(a).getInicio().getCodVertice())
+                        || this.vertices.get(i).getCodVertice().equals(this.arestas.get(a).getFim().getCodVertice())) {
+                    grau++;
+                    aux++;
+                }
+            }
+            tempGrau = aux;
+            aux = 0;
+            // if(grau == tempGrau)
+            // System.out.println("Vertice " + this.vertices.get(i).getCodVertice() + " tem
+            // " + grau + " Grau");
+            // System.out.println(grau);
+            // System.out.println(tempGrau);
 
-    public boolean isNulo(){
-        if(this.arestas.size() == 0){
+        }
+        int sumTotal = tempGrau * this.vertices.size();
+        if (sumTotal == grau) {
+            System.out.println("Este grafo é regular");
+            return true;
+
+        } else {
+            System.out.println("Este grafo não é regular");
+            return false;   
+        }
+    }
+
+    public boolean isNulo() {
+        if (this.arestas.size() == 0) {
             System.out.println("Este grafo é nulo");
             return true;
-        }else{
+        } else {
             System.out.println("Este grafo não é nulo");
             return false;
         }
