@@ -22,7 +22,9 @@ public class Vertice<TIPO> {
     public void setCodVertice(TIPO codVertice) {
         this.codVertice = codVertice;
     }
-
+    public ArrayList<Aresta<TIPO>> getArestasEntrada() {
+      return arestasSaida;
+  }
     public ArrayList<Aresta<TIPO>> getArestasSaida() {
         return arestasSaida;
     }

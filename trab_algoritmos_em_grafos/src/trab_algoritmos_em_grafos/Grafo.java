@@ -131,4 +131,33 @@ public class Grafo<TIPO> {
         return getGrau(codVertice) == 1;     
     }
 
+    // public void isRegular(){
+    //   for(int i =0; i<this.vertices.size(); i++){
+    //     //   System.out.println(this.vertices.get(i).getCodVertice());
+    //     //   if(this.arestas.get(i).getInicio().equals(this.arestas.get(i).getFim())){
+    //     //       System.out.println("Este Grafo é regular");
+    //     //   }else{
+    //     //       System.out.println("Este Grafo não é regular");
+    //     //   }
+    //     //   this.vertices.add(i);
+    //     //   System.out.println();
+    //     // } 
+    //     System.out.println(this.arestas.get(i).getInicio().getCodVertice());
+    //     System.out.println(this.arestas.get(i).getFim().getCodVertice());
+
+    //   }
+    // }
+
+    public boolean isNulo(){
+        if(this.arestas.size() == 0){
+            System.out.println("Este grafo é nulo");
+            return true;
+        }else{
+            System.out.println("Este grafo não é nulo");
+            return false;
+        }
+    }
+    // public boolean isCompleto(){
+    // }
+
 }
