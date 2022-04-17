@@ -33,8 +33,14 @@ public class Menu {
 
 		Input filereader = new Input();
 
+<<<<<<< Updated upstream
 		// Cria o grafo
+=======
+>>>>>>> Stashed changes
 		Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");
+
+		//Cria o grafo
+		/*Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");
 		ArrayList<Integer> verticesGrafo = new ArrayList<>();
 		ArrayList<String> grafoFileData = filereader.getFiledata();
 		int qntVertices = 0;
@@ -85,7 +91,7 @@ public class Menu {
 			System.out.println("Grafo criado!");
 		} else {
 			System.out.println("Houve algum problema na criação do grafo");
-		}
+		}*/
 		menu(grafo, verticesGrafo);
 	}
 

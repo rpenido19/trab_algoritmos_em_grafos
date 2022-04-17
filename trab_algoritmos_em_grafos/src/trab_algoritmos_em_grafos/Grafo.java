@@ -8,12 +8,63 @@ public class Grafo<TIPO> {
     private String tipoGrafo;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
+    private ArrayList<Integer> codVertices;
 
     //Construtor
     public Grafo(String tipoGrafo) {
         this.tipoGrafo = tipoGrafo;
         this.vertices = new ArrayList<Vertice<TIPO>>();
         this.arestas = new ArrayList<Aresta<TIPO>>();
+
+        //Criando grafo a partir do arquivo txt
+        Input filereader = new Input();
+        ArrayList<String> grafoFileData = filereader.readFile();
+        int qntVertices = 0;
+		int repeticoes = 0;
+        boolean errorGrafo = false;
+        for(String linha : grafoFileData){
+			if(repeticoes==0){
+				//Criando vértices
+				qntVertices = Integer.parseInt(linha);
+				for(int i=0;i<qntVertices;i++){
+				    adicionarVertice(i+1);
+					codVertices.add(i+1);
+					System.out.println("Vértice adicionado: " + (i+1));
+				}
+			}else{
+				linha = linha.replace(" ", "");
+				String[] arestasArray =  linha.split(";");
+				System.out.println("Leitura de linha do input: " + linha);
+				if(arestasArray.length == 3){
+					//Grafo não-direcionado
+					grafo.setTipoGrafo("NAO DIRECIONADO");
+					grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[0]), Integer.parseInt(arestasArray[1]));
+					System.out.println("Arresta adicionada: " + arestasArray[0] + "-" + arestasArray[1]);
+				}else if(arestasArray.length == 4){
+					//Grafo direcionado
+					grafo.setTipoGrafo("DIRECIONADO");
+					if(Integer.parseInt(arestasArray[3]) == 1){
+						grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[0]), Integer.parseInt(arestasArray[1]));
+						System.out.println("Arresta adicionada: " + arestasArray[0] + "-" + arestasArray[1]);
+					}else if(Integer.parseInt(arestasArray[3]) == -1){
+						grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[1]), Integer.parseInt(arestasArray[0]));
+						System.out.println("Arresta adicionada: " + arestasArray[1] + "-" + arestasArray[0]);
+					}else{
+						System.out.println("Erro ao ler a direção da aresta");
+						errorGrafo = true;
+					}
+				}else{
+					System.out.println("Falha na criação do grafo, verificar arquivo de input");
+					errorGrafo = true;
+				}
+			}
+			repeticoes++;
+		}
+		if(errorGrafo == false){
+			System.out.println("Grafo criado!");
+		}else{
+			System.out.println("Houve algum problema na criação do grafo");
+		}
     }
 
     //Getters e Setters
