@@ -36,7 +36,7 @@ public class Menu {
 		// Cria o grafo
 		Grafo<Integer> grafo = new Grafo<Integer>("NAO DIRECIONADO");
 		ArrayList<Integer> verticesGrafo = new ArrayList<>();
-		ArrayList<String> grafoFileData = filereader.readFile();
+		ArrayList<String> grafoFileData = filereader.getFiledata();
 		int qntVertices = 0;
 		int repeticoes = 0;
 		boolean errorGrafo = false;
