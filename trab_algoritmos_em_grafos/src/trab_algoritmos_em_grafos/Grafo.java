@@ -11,10 +11,10 @@ public class Grafo<TIPO> {
     private ArrayList<Integer> codVertices;
 
     //Construtor
-    public Grafo(String tipoGrafo) {
-        this.tipoGrafo = tipoGrafo;
+    public Grafo() {
         this.vertices = new ArrayList<Vertice<TIPO>>();
         this.arestas = new ArrayList<Aresta<TIPO>>();
+        this.codVertices = new ArrayList<>();
 
         //Criando grafo a partir do arquivo txt
         Input filereader = new Input();
@@ -27,8 +27,8 @@ public class Grafo<TIPO> {
 				//Criando vértices
 				qntVertices = Integer.parseInt(linha);
 				for(int i=0;i<qntVertices;i++){
-				    adicionarVertice(i+1);
-					codVertices.add(i+1);
+				    adicionarVertice((TIPO)Integer.valueOf(i+1));
+					this.codVertices.add(i+1);
 					System.out.println("Vértice adicionado: " + (i+1));
 				}
 			}else{
@@ -37,17 +37,17 @@ public class Grafo<TIPO> {
 				System.out.println("Leitura de linha do input: " + linha);
 				if(arestasArray.length == 3){
 					//Grafo não-direcionado
-					grafo.setTipoGrafo("NAO DIRECIONADO");
-					grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[0]), Integer.parseInt(arestasArray[1]));
+					this.tipoGrafo = "NAO DIRECIONADO";
+					adicionarAresta(Integer.parseInt(arestasArray[2]), (TIPO) arestasArray[0], (TIPO) arestasArray[1]);
 					System.out.println("Arresta adicionada: " + arestasArray[0] + "-" + arestasArray[1]);
 				}else if(arestasArray.length == 4){
 					//Grafo direcionado
-					grafo.setTipoGrafo("DIRECIONADO");
+					this.tipoGrafo = "DIRECIONADO";
 					if(Integer.parseInt(arestasArray[3]) == 1){
-						grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[0]), Integer.parseInt(arestasArray[1]));
+						adicionarAresta(Integer.parseInt(arestasArray[2]), (TIPO) arestasArray[0], (TIPO) arestasArray[1]);
 						System.out.println("Arresta adicionada: " + arestasArray[0] + "-" + arestasArray[1]);
 					}else if(Integer.parseInt(arestasArray[3]) == -1){
-						grafo.adicionarAresta(Integer.parseInt(arestasArray[2]), Integer.parseInt(arestasArray[1]), Integer.parseInt(arestasArray[0]));
+						adicionarAresta(Integer.parseInt(arestasArray[2]), (TIPO) arestasArray[1], (TIPO) arestasArray[0]);
 						System.out.println("Arresta adicionada: " + arestasArray[1] + "-" + arestasArray[0]);
 					}else{
 						System.out.println("Erro ao ler a direção da aresta");
@@ -65,11 +65,6 @@ public class Grafo<TIPO> {
 		}else{
 			System.out.println("Houve algum problema na criação do grafo");
 		}
-    }
-
-    //Getters e Setters
-    public void setTipoGrafo(String tipoGrafo){
-        this.tipoGrafo = tipoGrafo;
     }
 
     //Adicionar vértice
@@ -190,12 +185,12 @@ public class Grafo<TIPO> {
     }
 
     //Retorna se o grafo é regular ou não
-    public boolean isRegular(ArrayList<Integer> verticesGrafo){
+    public boolean isRegular(){
         TIPO codVertice;
         boolean isRegular = true;
         int repeticoes = 0;
         int grauTemp = 0;
-        for(Integer vertice : verticesGrafo){
+        for(Integer vertice : this.codVertices){
             codVertice = (TIPO) vertice;
             if(repeticoes == 0){
                 grauTemp = getGrau(codVertice);
@@ -211,11 +206,11 @@ public class Grafo<TIPO> {
     }
 
     //Retorna se o grafo é nulo ou não
-    public boolean isNulo(ArrayList<Integer> verticesGrafo){
+    public boolean isNulo(){
         TIPO codVertice;
         boolean isNulo = true;
         int grauTemp = 0;
-        for(Integer vertice : verticesGrafo){
+        for(Integer vertice : this.codVertices){
             codVertice = (TIPO) vertice;
             if(grauTemp!=getGrau(codVertice)){
                 isNulo = false;
@@ -225,12 +220,12 @@ public class Grafo<TIPO> {
     }
 
     //Retorna se o grafo é completo
-    public boolean isCompleto(ArrayList<Integer> verticesGrafo){
+    public boolean isCompleto(){
         System.out.println("Quantidade de vértices: " + this.qntVertices);
         TIPO codVertice;
         boolean isCompleto = true;
         int grauTemp = this.qntVertices - 1;
-        for(Integer vertice : verticesGrafo){
+        for(Integer vertice : this.codVertices){
             codVertice = (TIPO) vertice;
             if(grauTemp!=getGrau(codVertice)){
                 isCompleto = false;
@@ -238,11 +233,11 @@ public class Grafo<TIPO> {
         }
         return isCompleto;
     }
-    public boolean isUnicursal(ArrayList<Integer> verticesGrafo){
+    public boolean isUnicursal(){
         TIPO codVertice;
         boolean isUnicursal = true;
         int counImpar = 0;
-        for(Integer vertice : verticesGrafo){
+        for(Integer vertice : this.codVertices){
             codVertice = (TIPO) vertice;
             // System.out.println(getGrau(codVertice));
             if(getGrau(codVertice)%2 != 0){
@@ -256,11 +251,11 @@ public class Grafo<TIPO> {
         }
         return isUnicursal;
     }
-    public boolean isEuleriano(ArrayList<Integer> verticesGrafo){
+    public boolean isEuleriano(){
         TIPO codVertice;
         boolean isEuleriano = true;
         int counPar = 0;
-        for(Integer vertice : verticesGrafo){
+        for(Integer vertice : this.codVertices){
             codVertice = (TIPO) vertice;
             // System.out.println(getGrau(codVertice));
             if(getGrau(codVertice)%2 == 0){
