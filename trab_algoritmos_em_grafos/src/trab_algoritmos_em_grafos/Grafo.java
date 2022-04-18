@@ -211,7 +211,6 @@ public class Grafo<TIPO> {
     //Retorna se um grafo é conexo ou não
     public boolean isConexo(ArrayList<Integer> verticesGrafo){
         TIPO codVertice;
-        boolean isConexo = true;
         this.componentes = 1;
         this.timestamp = 0;
         for(Integer codVerticeTemp : verticesGrafo){
@@ -234,7 +233,11 @@ public class Grafo<TIPO> {
             Vertice<TIPO> vertice = getVertice(codVertice);
             System.out.println("Componentes do vértice " + vertice.getCodVertice() + ": " + vertice.getComponente());
         }
-        return isConexo;
+        if(this.componentes==1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //Realiza a visita de um vértice (para analisar se é conexo)

@@ -88,7 +88,11 @@ public class Menu {
 			menu(grafo, verticesGrafo);
 			break;
 		case "isConexo":
-			grafo.isConexo(verticesGrafo);
+			if(grafo.isConexo(verticesGrafo)==true){
+				System.out.println("O grafo é conexo");
+			}else{
+				System.out.println("O grafo não é conexo");
+			}
 			menu(grafo, verticesGrafo);
 			break;
 		case "getGrauEntrada":
