@@ -213,6 +213,7 @@ public class Grafo<TIPO> {
         TIPO codVertice;
         this.componentes = 1;
         this.timestamp = 0;
+        boolean isConexo = true;
         for(Integer codVerticeTemp : verticesGrafo){
             codVertice = (TIPO) codVerticeTemp;
             Vertice<TIPO> vertice = getVertice(codVertice);
@@ -232,12 +233,11 @@ public class Grafo<TIPO> {
             codVertice = (TIPO) codVerticeTemp;
             Vertice<TIPO> vertice = getVertice(codVertice);
             System.out.println("Componentes do vértice " + vertice.getCodVertice() + ": " + vertice.getComponente());
+            if(vertice.getComponente()!=1){
+                isConexo = false;
+            }
         }
-        if(this.componentes==1){
-            return true;
-        }else{
-            return false;
-        }
+        return isConexo;
     }
 
     //Realiza a visita de um vértice (para analisar se é conexo)
@@ -259,6 +259,28 @@ public class Grafo<TIPO> {
         vertice.setCor("preto");
         this.timestamp++;
         vertice.setDescoberta(this.timestamp);
+    }
+
+    //Retorna se o grafo é euleriano
+    public boolean isEuleriano(ArrayList<Integer> verticesGrafo){
+        if(isConexo(verticesGrafo)){
+            //System.out.println("Quantidade de vértices: " + this.qntVertices);
+            TIPO codVertice;
+            boolean isEuleriano = true;
+            int grauTemp = 0;
+            for(Integer vertice : verticesGrafo){
+                codVertice = (TIPO) vertice;
+                if(grauTemp!=(getGrau(codVertice)%2)){
+                    System.out.println("Vértice ímpar");
+                    isEuleriano = false;
+                }else{
+                    System.out.println("Vértice par");
+                }
+            }
+            return isEuleriano;
+        }else{
+            return false;
+        }
     }
 
 }

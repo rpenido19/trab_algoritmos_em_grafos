@@ -25,6 +25,7 @@ public class Menu {
 		System.out.println("isNulo				verifica se o grafo é nulo");
 		System.out.println("isCompleto			verifica se o grafo é completo");
 		System.out.println("isConexo			verifica se o grafo é conexo");
+		System.out.println("isEuleriano			verifica se o grafo é euleriano");
 		System.out.println("getGrauEntrada			verifica o grau de entrada de um vértice");
 		System.out.println("getGrauSaida			verifica o grau de saída de um vértice");
 		System.out.println("quit				finaliza o programa");
@@ -92,6 +93,14 @@ public class Menu {
 				System.out.println("O grafo é conexo");
 			}else{
 				System.out.println("O grafo não é conexo");
+			}
+			menu(grafo, verticesGrafo);
+			break;
+		case "isEuleriano":
+			if(grafo.isEuleriano(verticesGrafo)==true){
+				System.out.println("O grafo é euleriano");
+			}else{
+				System.out.println("O grafo não é euleriano");
 			}
 			menu(grafo, verticesGrafo);
 			break;
