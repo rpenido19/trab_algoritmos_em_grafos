@@ -283,4 +283,30 @@ public class Grafo<TIPO> {
         }
     }
 
+    //Retorna se o grafo é euleriano
+    public boolean isUnicursal(ArrayList<Integer> verticesGrafo){
+        if(isConexo(verticesGrafo)){
+            //System.out.println("Quantidade de vértices: " + this.qntVertices);
+            TIPO codVertice;
+            int grauTemp = 0;
+            int contGrauImpares = 0;
+            for(Integer vertice : verticesGrafo){
+                codVertice = (TIPO) vertice;
+                if(grauTemp!=(getGrau(codVertice)%2)){
+                    System.out.println("Vértice ímpar");
+                    contGrauImpares++;
+                }else{
+                    System.out.println("Vértice par");
+                }
+            }
+            if(contGrauImpares==2){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }
