@@ -27,6 +27,10 @@ public class Vertice<TIPO> {
         return arestasSaida;
     }
 
+    public ArrayList<Aresta<TIPO>> getArestasEntrada() {
+        return arestasEntrada;
+    }
+
     // Adicionar arestas de entrada e saída
     public void adicionarArestaEntrada(Aresta<TIPO> aresta) {
         this.arestasEntrada.add(aresta);
