@@ -24,6 +24,7 @@ public class Menu {
 		System.out.println("isRegular			verifica se o grafo é regular");
 		System.out.println("isNulo				verifica se o grafo é nulo");
 		System.out.println("isCompleto			verifica se o grafo é completo");
+		System.out.println("isConexo			verifica se o grafo é conexo");
 		System.out.println("getGrauEntrada			verifica o grau de entrada de um vértice");
 		System.out.println("getGrauSaida			verifica o grau de saída de um vértice");
 		System.out.println("quit				finaliza o programa");
@@ -84,6 +85,10 @@ public class Menu {
 			}else{
 				System.out.println("O grafo não é completo");
 			}
+			menu(grafo, verticesGrafo);
+			break;
+		case "isConexo":
+			grafo.isConexo(verticesGrafo);
 			menu(grafo, verticesGrafo);
 			break;
 		case "getGrauEntrada":

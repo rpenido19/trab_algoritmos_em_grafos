@@ -6,17 +6,19 @@ import java.util.ArrayList;
 public class Vertice<TIPO> {
 
     private TIPO codVertice;
+    private ArrayList<Vertice<TIPO>> vizinhos;
     private ArrayList<Aresta<TIPO>> arestasEntrada;
     private ArrayList<Aresta<TIPO>> arestasSaida;
     private String cor;
     private Vertice<TIPO> pai;
-    private Timestamp descoberta;
+    private int descoberta;
     private int componente;
     
     public Vertice(TIPO codVertice) {
         this.codVertice = codVertice;
         this.arestasEntrada = new ArrayList<Aresta<TIPO>>();
         this.arestasSaida = new ArrayList<Aresta<TIPO>>();
+        this.vizinhos = new ArrayList<Vertice<TIPO>>();
     }
 
     // Getters e Setters
@@ -28,11 +30,11 @@ public class Vertice<TIPO> {
         this.componente = componente;
     }
 
-    public Timestamp getDescoberta() {
+    public int getDescoberta() {
         return descoberta;
     }
 
-    public void setDescoberta(Timestamp descoberta) {
+    public void setDescoberta(int descoberta) {
         this.descoberta = descoberta;
     }
 
@@ -51,7 +53,7 @@ public class Vertice<TIPO> {
     public void setCor(String cor) {
         this.cor = cor;
     }
-    
+
     public TIPO getCodVertice() {
         return codVertice;
     }
@@ -68,6 +70,10 @@ public class Vertice<TIPO> {
         return arestasEntrada;
     }
 
+    public ArrayList<Vertice<TIPO>> getVizinhos() {
+        return vizinhos;
+    }
+
     // Adicionar arestas de entrada e saída
     public void adicionarArestaEntrada(Aresta<TIPO> aresta) {
         this.arestasEntrada.add(aresta);
@@ -75,6 +81,11 @@ public class Vertice<TIPO> {
 
     public void adicionarArestaSaida(Aresta<TIPO> aresta) {
         this.arestasSaida.add(aresta);
+    }
+
+    // Adicionar vizinhos
+    public void adicionarVizinho(Vertice<TIPO> vertice){
+        this.vizinhos.add(vertice);
     }
 
 }

@@ -8,6 +8,8 @@ public class Grafo<TIPO> {
     private String tipoGrafo;
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
+    private int timestamp;
+    private int componentes;
 
     //Construtor
     public Grafo(String tipoGrafo) {
@@ -36,8 +38,10 @@ public class Grafo<TIPO> {
         // Cria uma aresta utilizando os vértices encontrados
         Aresta<TIPO> aresta = new Aresta<TIPO>(peso, inicio, fim);
         if(this.tipoGrafo == "NAO DIRECIONADO"){
+            inicio.adicionarVizinho(fim);
             inicio.adicionarArestaEntrada(aresta);
             inicio.adicionarArestaSaida(aresta);
+            fim.adicionarVizinho(inicio);
             fim.adicionarArestaEntrada(aresta);
             fim.adicionarArestaSaida(aresta);
         }else if(this.tipoGrafo == "DIRECIONADO"){
@@ -208,14 +212,50 @@ public class Grafo<TIPO> {
     public boolean isConexo(ArrayList<Integer> verticesGrafo){
         TIPO codVertice;
         boolean isConexo = true;
-        int grauTemp = this.qntVertices - 1;
-        for(Integer vertice : verticesGrafo){
-            codVertice = (TIPO) vertice;
-            if(grauTemp!=getGrau(codVertice)){
-                isConexo = false;
+        this.componentes = 1;
+        this.timestamp = 0;
+        for(Integer codVerticeTemp : verticesGrafo){
+            codVertice = (TIPO) codVerticeTemp;
+            Vertice<TIPO> vertice = getVertice(codVertice);
+            vertice.setCor("branco");
+            vertice.setPai(null);
+        }
+        for(Integer codVerticeTemp : verticesGrafo){
+            codVertice = (TIPO) codVerticeTemp;
+            Vertice<TIPO> vertice = getVertice(codVertice);
+            if(vertice.getCor()=="branco"){
+                isConexoVisita(vertice);
+                this.componentes++;
             }
         }
+        //Verifica com final de todos os vértices
+        for(Integer codVerticeTemp : verticesGrafo){
+            codVertice = (TIPO) codVerticeTemp;
+            Vertice<TIPO> vertice = getVertice(codVertice);
+            System.out.println("Componentes do vértice " + vertice.getCodVertice() + ": " + vertice.getComponente());
+        }
         return isConexo;
+    }
+
+    //Realiza a visita de um vértice (para analisar se é conexo)
+    public void isConexoVisita(Vertice<TIPO> vertice){
+        Vertice<TIPO> verticeVizinho;
+        this.timestamp++; 
+        vertice.setDescoberta(this.timestamp);
+        vertice.setCor("cinza");
+        vertice.setComponente(this.componentes);
+        System.out.println("Vértice analisado: " + vertice.getCodVertice());
+        for(Vertice<TIPO> verticeVizinhoTemp : vertice.getVizinhos()){
+            System.out.println("Vértice vizinho a ser analisado: " + verticeVizinhoTemp.getCodVertice());
+            verticeVizinho = getVertice(verticeVizinhoTemp.getCodVertice());
+            if(verticeVizinho.getCor()=="branco"){
+                verticeVizinho.setPai(vertice);
+                isConexoVisita(verticeVizinho);
+            }
+        }
+        vertice.setCor("preto");
+        this.timestamp++;
+        vertice.setDescoberta(this.timestamp);
     }
 
 }
