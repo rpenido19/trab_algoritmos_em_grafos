@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Input {
 
-    private static String route = "C:\\Users\\Gustavo\\Documents\\Grafos\\";
-    private static String filename = "grafoRegular.txt";
+    private static String route = System.getProperty("user.dir") + "\\src\\trab_algoritmos_em_grafos\\Grafos\\";
+    private static String filename = "grafoDirecionado.txt";
 
     public static String getRoute() {
         return route;
