@@ -204,4 +204,18 @@ public class Grafo<TIPO> {
         return countGrau;
     }
 
+    //Retorna se um grafo é conexo ou não
+    public boolean isConexo(ArrayList<Integer> verticesGrafo){
+        TIPO codVertice;
+        boolean isConexo = true;
+        int grauTemp = this.qntVertices - 1;
+        for(Integer vertice : verticesGrafo){
+            codVertice = (TIPO) vertice;
+            if(grauTemp!=getGrau(codVertice)){
+                isConexo = false;
+            }
+        }
+        return isConexo;
+    }
+
 }
