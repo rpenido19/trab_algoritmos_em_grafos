@@ -7,8 +7,11 @@ import java.util.Scanner;
 
 public class Input {
 
-    private static String route = System.getProperty("user.dir") + "\\src\\trab_algoritmos_em_grafos\\Grafos\\";
-    private static String filename = "grafoUnicursal.txt";
+    private static String route = "/home/devnology/Documentos/";
+    private static String filename = "grafo.txt";
+    private static String routes = System.getProperty("user.dir") + "\\src\\trab_algoritmos_em_grafos\\Grafos\\";
+    private static String filenames = "grafoUnicursal.txt";
+
 
     public static String getRoute() {
         return route;
