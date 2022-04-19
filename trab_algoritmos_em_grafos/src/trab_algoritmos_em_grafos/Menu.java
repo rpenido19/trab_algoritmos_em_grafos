@@ -131,7 +131,7 @@ public class Menu {
 			menu(grafo, verticesGrafo);
 			break;
 		case "getComplementar":
-			System.out.print("Método não implementado.");
+			grafo.getComplementar(verticesGrafo);
 			menu(grafo, verticesGrafo);
 			break;
 		case "getAGMPrim":
@@ -160,7 +160,7 @@ public class Menu {
 			System.out.println("Obrigado por utilizar o programa!");
 			break;
 		default:
-			System.out.println("\nWARNING - Comando digitado inválido!\n");
+			System.out.println("\nAtenção! Comando digitado inválido!\n");
 			menu(grafo, verticesGrafo);
 		}
 

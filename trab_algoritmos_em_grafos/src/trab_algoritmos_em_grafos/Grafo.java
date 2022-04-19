@@ -417,4 +417,28 @@ public class Grafo<TIPO> {
         vertice.setTermino(timestamp);
     }
 
+    //Retorna o grafo complementar
+    public Grafo<TIPO> getComplementar(ArrayList<Integer> verticesGrafo){
+        Vertice<TIPO> vertice;
+        Vertice<TIPO> verticeTemp;
+        Grafo<TIPO> grafoComplementar = new Grafo<>("NAO DIRECIONADO");
+        if(isCompleto(verticesGrafo)){
+            return this;
+        }else{
+            for(Integer codVertice : verticesGrafo){
+                vertice = getVertice((TIPO) codVertice);
+                for(Integer codVerticesTemp : verticesGrafo){
+                    verticeTemp = getVertice((TIPO) codVerticesTemp);
+                    if(!isAdjacente(vertice.getCodVertice(), verticeTemp.getCodVertice())){
+                        grafoComplementar.adicionarVertice(vertice.getCodVertice());
+                        grafoComplementar.adicionarVertice(verticeTemp.getCodVertice());
+                        grafoComplementar.adicionarAresta(1, vertice.getCodVertice(), verticeTemp.getCodVertice());
+                        System.out.println("Criando vértice " + vertice.getCodVertice() + "-" + verticeTemp.getCodVertice());
+                    }
+                }
+            }
+        }
+        return grafoComplementar;
+    }
+
 }
