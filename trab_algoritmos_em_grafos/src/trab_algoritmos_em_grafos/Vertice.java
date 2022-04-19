@@ -12,6 +12,7 @@ public class Vertice<TIPO> {
     private String cor;
     private Vertice<TIPO> pai;
     private int descoberta;
+    private int termino;
     private int componente;
     
     public Vertice(TIPO codVertice) {
@@ -22,6 +23,14 @@ public class Vertice<TIPO> {
     }
 
     // Getters e Setters
+    public int getTermino() {
+        return termino;
+    }
+
+    public void setTermino(int termino) {
+        this.termino = termino;
+    }
+    
     public int getComponente() {
         return componente;
     }

@@ -27,9 +27,13 @@ public class Menu {
 		System.out.println("isConexo			verifica se o grafo é conexo");
 		System.out.println("isEuleriano			verifica se o grafo é euleriano");
 		System.out.println("isUnicursal			verifica se o grafo é unicursal");
+		System.out.println("getComplementar			busca grafo complementar");
 		System.out.println("getAGMPrim			retorna a árvore geradora mínima utilizando o algoritmo de PRIM");
-		System.out.println("getGrauEntrada			verifica o grau de entrada de um vértice");
-		System.out.println("getGrauSaida			verifica o grau de saída de um vértice");
+		System.out.println("getAGMKruskal			retorna a árvore geradora mínima utilizando o algoritmo de KRUSKAL");
+		System.out.println("getCutVertices			retorna a quantidade de Cut Vértices");
+		System.out.println("getGrauEntrada			verifica o grau de entrada de um vértice (apenas grafos direcionados)");
+		System.out.println("getGrauSaida			verifica o grau de saída de um vértice (apenas grafos direcionados)");
+		System.out.println("hasCiclo			verifica se o grafo possui ciclos (apenas grafos direcionados)");
 		System.out.println("quit				finaliza o programa");
 
 		System.out.print("\nDigite uma opção: ");
@@ -126,10 +130,30 @@ public class Menu {
 			grafo.getGrauSaida(vertice1);
 			menu(grafo, verticesGrafo);
 			break;
+		case "getComplementar":
+			System.out.print("Método não implementado.");
+			menu(grafo, verticesGrafo);
+			break;
 		case "getAGMPrim":
 			System.out.print("Digite do vértice: ");
 			vertice1 = input.nextInt();
 			grafo.getAGMPrim(vertice1);
+			menu(grafo, verticesGrafo);
+			break;
+		case "getAGMKruskal":
+			System.out.print("Método não implementado.");
+			menu(grafo, verticesGrafo);
+			break;
+		case "getCutVertices":
+			System.out.print("Método não implementado.");
+			menu(grafo, verticesGrafo);
+			break;
+		case "hasCiclo":
+			if(grafo.hasCiclo(verticesGrafo)==true){
+				System.out.println("O grafo possui ciclos");
+			}else{
+				System.out.println("O grafo não possui ciclos");
+			}
 			menu(grafo, verticesGrafo);
 			break;
 		case "quit":

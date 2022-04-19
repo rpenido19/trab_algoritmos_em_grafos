@@ -10,6 +10,8 @@ public class Grafo<TIPO> {
     private ArrayList<Aresta<TIPO>> arestas;
     private int timestamp;
     private int componentes;
+    private boolean hasCiclo;
+    private TIPO verticeAnalisadoCiclo;
 
     //Construtor
     public Grafo(String tipoGrafo) {
@@ -362,7 +364,57 @@ public class Grafo<TIPO> {
             }
             verticeNumber++;
         }
+    }
 
+    //Verifica se existem ciclos ou não no grafo
+    public boolean hasCiclo(ArrayList<Integer> verticesGrafo){
+        TIPO codVertice;
+        this.hasCiclo = false;
+        this.timestamp = 0;
+        for(Integer codVerticeTemp : verticesGrafo){
+            //Settando todos os vértices como branco para fazer a análise vértice a vértice
+            for(Integer limparCodVerticeTemp : verticesGrafo){
+                codVertice = (TIPO) limparCodVerticeTemp;
+                Vertice<TIPO> vertice = getVertice(codVertice);
+                vertice.setCor("branco");
+                vertice.setPai(null);
+            }
+            codVertice = (TIPO) codVerticeTemp;
+            Vertice<TIPO> vertice = getVertice(codVertice);
+            this.verticeAnalisadoCiclo = vertice.getCodVertice();
+            System.out.println("--- Vértice analisado: " + vertice.getCodVertice() + " ---");
+            if(vertice.getCor() == "branco"){
+                hasCicloVisita(vertice);
+            }
+        }
+        return this.hasCiclo;
+    }
+
+    //Realiza a visita de um vértice da função hasCiclo()
+    public void hasCicloVisita(Vertice<TIPO> vertice){
+        Vertice<TIPO> verticeVizinho;
+        ArrayList<Aresta<TIPO>> arestasSaida;
+        this.timestamp++;
+        vertice.setDescoberta(this.timestamp);
+        vertice.setCor("cinza");
+        System.out.println("Percorrendo vértice: " + vertice.getCodVertice());
+        arestasSaida = vertice.getArestasSaida();
+        for(Aresta<TIPO> arestaSaidaTemp : arestasSaida){
+            verticeVizinho = arestaSaidaTemp.getFim();
+            System.out.println("Vértice vizinho: " + verticeVizinho.getCodVertice());
+            if(verticeVizinho.getCodVertice() == this.verticeAnalisadoCiclo){
+                System.out.println("Ciclo encontrado!");
+                this.hasCiclo = true;
+            }
+            verticeVizinho = getVertice(verticeVizinho.getCodVertice());
+            if(verticeVizinho.getCor()=="branco"){
+                verticeVizinho.setPai(vertice);
+                hasCicloVisita(verticeVizinho);
+            }
+        }
+        vertice.setCor("preto");
+        this.timestamp++;
+        vertice.setTermino(timestamp);
     }
 
 }
