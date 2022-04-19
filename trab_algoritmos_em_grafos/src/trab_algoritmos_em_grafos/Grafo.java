@@ -309,4 +309,60 @@ public class Grafo<TIPO> {
         }
     }
 
+    //Retorna sua árvore geradora mínima usando o algoritmo de Prim
+    public void getAGMPrim(TIPO codVertice){
+        boolean continuarExecutandoWhile = true;
+        ArrayList<Integer> pais = new ArrayList<>();
+        int i, primeiro, dest=0, menorPeso=0;
+        TIPO tempCodVertice;
+        Vertice<TIPO> tempVertice;
+        ArrayList<Aresta<TIPO>> tempArestas;
+        int tempFimVertice;
+        for(i=0; i<=this.qntVertices; i++){
+            pais.add(-1); //-1 sem pai, 1 com pai
+        }
+        pais.set((Integer) codVertice, (Integer) codVertice);
+        while(continuarExecutandoWhile){
+            primeiro = 1;
+            for(i = 1; i<=this.qntVertices; i++){
+                if(pais.get(i)!=-1){
+                    tempCodVertice = (TIPO) Integer.valueOf(i); //convertendo int para TIPO (código do vértice)
+                    tempVertice = getVertice(tempCodVertice); //buscando vértice pelo código
+                    tempArestas = tempVertice.getArestasSaida(); //buscando arestas de saída
+                    for(Aresta<TIPO> aresta : tempArestas){ //para cada aresta faça
+                        tempFimVertice = (int) aresta.getFim().getCodVertice(); //pega o vértice vizinho e converte em int
+                        if(pais.get(tempFimVertice)==-1){ //analisa se o vértice vizinho não tem pai
+                            if(primeiro==1){
+                                menorPeso = aresta.getPeso();
+                                codVertice = tempCodVertice;
+                                dest = (int) aresta.getFim().getCodVertice();
+                                primeiro = 0;
+                            }else{
+                                if(menorPeso > aresta.getPeso()){
+                                    menorPeso = aresta.getPeso();
+                                    codVertice = tempCodVertice;
+                                    dest = (int) aresta.getFim().getCodVertice();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(primeiro == 1){
+                continuarExecutandoWhile = false;
+                break;
+            }else{
+                pais.set(dest, (Integer) codVertice);
+            }
+        }
+        int verticeNumber = 0;
+        for(int pai : pais){
+            if(verticeNumber!=0){
+                System.out.println("Vértice: " + verticeNumber + "/ Pai: " + pai);
+            }
+            verticeNumber++;
+        }
+
+    }
+
 }

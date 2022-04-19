@@ -27,6 +27,7 @@ public class Menu {
 		System.out.println("isConexo			verifica se o grafo é conexo");
 		System.out.println("isEuleriano			verifica se o grafo é euleriano");
 		System.out.println("isUnicursal			verifica se o grafo é unicursal");
+		System.out.println("getAGMPrim			retorna a árvore geradora mínima utilizando o algoritmo de PRIM");
 		System.out.println("getGrauEntrada			verifica o grau de entrada de um vértice");
 		System.out.println("getGrauSaida			verifica o grau de saída de um vértice");
 		System.out.println("quit				finaliza o programa");
@@ -123,6 +124,12 @@ public class Menu {
 			System.out.print("Digite do vértice: ");
 			vertice1 = input.nextInt();
 			grafo.getGrauSaida(vertice1);
+			menu(grafo, verticesGrafo);
+			break;
+		case "getAGMPrim":
+			System.out.print("Digite do vértice: ");
+			vertice1 = input.nextInt();
+			grafo.getAGMPrim(vertice1);
 			menu(grafo, verticesGrafo);
 			break;
 		case "quit":
